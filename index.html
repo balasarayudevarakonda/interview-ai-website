@@ -4,210 +4,650 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interview AI — Ace Every Interview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Inter',system-ui,sans-serif; background:#080812; color:#e2e8f0; }
-    nav { display:flex; justify-content:space-between; align-items:center; padding:18px 40px; border-bottom:1px solid #1a1a2e; }
-    .logo { font-size:18px; font-weight:700; color:#a78bfa; }
-    .nav-btn { background:#7c3aed; color:white; padding:8px 20px; border-radius:8px; text-decoration:none; font-size:13px; font-weight:600; }
-    .hero { text-align:center; padding:80px 20px 60px; }
-    .hero h1 { font-size:48px; font-weight:700; color:#e2e8f0; line-height:1.2; margin-bottom:16px; }
-    .hero h1 span { color:#a78bfa; }
-    .hero p { font-size:18px; color:#888; max-width:540px; margin:0 auto 32px; line-height:1.6; }
-    .hero-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-    .btn-primary { background:#7c3aed; color:white; padding:14px 32px; border-radius:10px; text-decoration:none; font-size:15px; font-weight:600; }
-    .btn-secondary { background:transparent; color:#a78bfa; padding:14px 32px; border-radius:10px; text-decoration:none; font-size:15px; font-weight:600; border:1px solid #a78bfa; }
-    .features { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:60px 40px; max-width:1000px; margin:0 auto; }
-    .feature { background:#111120; border:1px solid #2a2a45; border-radius:12px; padding:24px; }
-    .feature .icon { font-size:28px; margin-bottom:12px; }
-    .feature h3 { font-size:15px; font-weight:600; color:#e2e8f0; margin-bottom:8px; }
-    .feature p { font-size:13px; color:#666; line-height:1.6; }
-    .pricing { text-align:center; padding:60px 20px; }
-    .pricing h2 { font-size:32px; font-weight:700; margin-bottom:40px; }
-    .plans { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
-    .plan { background:#111120; border:1px solid #2a2a45; border-radius:16px; padding:28px 24px; width:240px; }
-    .plan.popular { border-color:#7c3aed; }
-    .plan .badge { background:#7c3aed; color:white; font-size:10px; font-weight:600; padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:12px; }
-    .plan h3 { font-size:16px; font-weight:600; margin-bottom:6px; }
-    .plan .price { font-size:32px; font-weight:700; color:#a78bfa; margin:12px 0; }
-    .plan .price span { font-size:14px; font-weight:400; color:#666; }
-    .plan p { font-size:12px; color:#666; margin-bottom:20px; }
-    .plan a { display:block; background:#7c3aed; color:white; padding:10px; border-radius:8px; text-decoration:none; font-size:13px; font-weight:600; text-align:center; }
-    .download { text-align:center; padding:60px 20px; background:#111120; }
-    .download h2 { font-size:28px; font-weight:700; margin-bottom:12px; }
-    .download p { color:#666; margin-bottom:28px; }
-    .download a { background:#7c3aed; color:white; padding:16px 40px; border-radius:10px; text-decoration:none; font-size:16px; font-weight:600; display:inline-block; }
-    footer { text-align:center; padding:24px; color:#444; font-size:13px; border-top:1px solid #1a1a2e; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    /* SUCCESS PAGE */
-    #success-page { display:none; min-height:100vh; align-items:center; justify-content:center; flex-direction:column; padding:40px 20px; text-align:center; }
-    #success-page.show { display:flex; }
-    .success-box { background:#111120; border:1px solid #2a2a45; border-radius:20px; padding:48px 40px; max-width:480px; width:100%; }
-    .success-icon { font-size:48px; margin-bottom:16px; }
-    .success-box h2 { font-size:26px; font-weight:700; margin-bottom:8px; }
-    .success-box p { color:#666; font-size:14px; margin-bottom:28px; line-height:1.6; }
-    .success-box input { width:100%; background:#0d0d1a; border:1px solid #2a2a45; border-radius:10px; padding:14px 16px; color:#e2e8f0; font-size:15px; margin-bottom:12px; outline:none; }
-    .success-box input:focus { border-color:#7c3aed; }
-    .success-box button { width:100%; background:#7c3aed; color:white; border:none; padding:14px; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; }
-    .success-box button:hover { background:#6d28d9; }
-    .license-result { display:none; margin-top:24px; background:#0d0d1a; border:1px solid #2a2a45; border-radius:12px; padding:20px; }
-    .license-result.show { display:block; }
-    .license-key { font-family:monospace; font-size:18px; color:#a78bfa; letter-spacing:2px; margin:8px 0 16px; word-break:break-all; }
-    .copy-btn { background:transparent; border:1px solid #7c3aed; color:#a78bfa; padding:8px 20px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600; }
-    .download-btn { display:inline-block; margin-top:16px; background:#7c3aed; color:white; padding:12px 28px; border-radius:10px; text-decoration:none; font-size:14px; font-weight:600; }
-    .error-msg { color:#f87171; font-size:13px; margin-top:8px; display:none; }
-    .error-msg.show { display:block; }
-    .loading-msg { color:#888; font-size:13px; margin-top:8px; display:none; }
-    .loading-msg.show { display:block; }
-    #main-page.hide { display:none; }
+    :root {
+      --bg: #06060f;
+      --bg2: #0d0d1c;
+      --bg3: #13132a;
+      --border: rgba(255,255,255,0.07);
+      --green: #00e5a0;
+      --green2: #00b87a;
+      --text: #eef0f8;
+      --text2: #7a8099;
+      --text3: #40455e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(6,6,15,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+
+    .logo-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+      animation: breathe 2.5s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%,100% { box-shadow: 0 0 8px var(--green); transform: scale(1); }
+      50% { box-shadow: 0 0 20px var(--green); transform: scale(1.15); }
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover { color: var(--text); }
+
+    .nav-dl {
+      background: var(--green);
+      color: #000;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 9px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .nav-dl:hover { background: #fff; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(0,229,160,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0,229,160,0.08);
+      border: 1px solid rgba(0,229,160,0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 500;
+      margin-bottom: 32px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-badge span { width:6px; height:6px; border-radius:50%; background:var(--green); animation: breathe 1.5s ease-in-out infinite; }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+      max-width: 800px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 19px);
+      color: var(--text2);
+      max-width: 520px;
+      line-height: 1.65;
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+
+    .dl-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--green);
+      color: #000;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dl-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    }
+
+    .dl-btn:hover {
+      background: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(0,229,160,0.3);
+    }
+
+    .dl-meta {
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    .dl-meta strong { color: var(--text2); }
+
+    /* ── FLOW SECTION ── */
+    .flow {
+      padding: 100px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      margin-bottom: 60px;
+      letter-spacing: -0.02em;
+    }
+
+    .steps {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      position: relative;
+    }
+
+    .step-connector {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 28px;
+    }
+
+    .step-connector::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0,229,160,0.3), rgba(0,229,160,0.1));
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 160px;
+      flex-shrink: 0;
+    }
+
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 1px solid rgba(0,229,160,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--green);
+      position: relative;
+    }
+
+    .step-num::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,229,160,0.1);
+    }
+
+    .step-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text2);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .step-label strong {
+      display: block;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 3px;
+      font-weight: 600;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 80px 24px 100px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .feat {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,229,160,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feat:hover { border-color: rgba(0,229,160,0.2); transform: translateY(-2px); }
+    .feat:hover::before { opacity: 1; }
+
+    .feat-icon {
+      font-size: 26px;
+      margin-bottom: 14px;
+    }
+
+    .feat h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .feat p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+
+    /* ── HOW IT WORKS IN APP ── */
+    .app-flow {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .app-steps {
+      display: flex;
+      gap: 16px;
+      max-width: 860px;
+      margin: 60px auto 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .app-step {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 20px;
+      width: 190px;
+      text-align: center;
+      position: relative;
+    }
+
+    .app-step-num {
+      position: absolute;
+      top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--green);
+      color: #000;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 3px 12px;
+      border-radius: 100px;
+    }
+
+    .app-step-icon { font-size: 28px; margin-bottom: 10px; }
+    .app-step h4 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+    .app-step p { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+    /* ── DOWNLOAD CTA ── */
+    .cta {
+      padding: 120px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-glow {
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(0,229,160,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      color: var(--text2);
+      font-size: 16px;
+      margin-bottom: 44px;
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text3);
+      font-size: 13px;
+    }
+
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+
+    /* ── FADE IN ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-link { display: none; }
+      .steps { flex-wrap: wrap; justify-content: center; }
+      .step-connector { display: none; }
+      footer { flex-direction: column; gap: 10px; text-align: center; }
+    }
   </style>
 </head>
 <body>
 
-<!-- SUCCESS PAGE — shown after Razorpay payment -->
-<div id="success-page">
-  <div class="success-box">
-    <div class="success-icon">🎉</div>
-    <h2>Payment Successful!</h2>
-    <p>Enter the email you used during payment to get your license key.</p>
-    <input type="email" id="email-input" placeholder="your@email.com" />
-    <div class="error-msg" id="error-msg">Please enter a valid email.</div>
-    <div class="loading-msg" id="loading-msg">Fetching your license key...</div>
-    <button onclick="fetchLicense()">Get My License Key</button>
-    <div class="license-result" id="license-result">
-      <p style="color:#888;font-size:13px;margin-bottom:4px;">Your license key:</p>
-      <div class="license-key" id="license-key-display">—</div>
-      <button class="copy-btn" onclick="copyKey()">📋 Copy Key</button>
-      <br/>
-      <a class="download-btn" href="https://github.com/balasarayudevarakonda/interview-ai/releases/download/v1.0.0/Interview.AI.Setup.1.0.0.exe">
-        ⬇ Download Interview AI
-      </a>
-      <p style="color:#555;font-size:12px;margin-top:16px;">Key also sent to your email. Open the app → enter this key to activate.</p>
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-dot"></div>
+    Interview AI
+  </a>
+  <div class="nav-right">
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#how-it-works" class="nav-link">How it works</a>
+    <a href="https://github.com/balasarayudevarakonda/interview-ai/releases/download/v1.0.0/Interview.AI.Setup.1.0.0.exe" class="nav-dl">⬇ Download Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+
+  <div class="hero-badge">
+    <span></span>
+    Free to download · No credit card required
+  </div>
+
+  <h1>Ace Every Interview<br>with <em>AI Assistance</em></h1>
+
+  <p class="hero-sub">
+    Real-time AI-powered answers during your interviews. Invisible overlay, voice detection, screen capture — all in one desktop app.
+  </p>
+
+  <div class="dl-block">
+    <a class="dl-btn" href="https://github.com/balasarayudevarakonda/interview-ai/releases/download/v1.0.0/Interview.AI.Setup.1.0.0.exe">
+      ⬇ Download for Windows — Free
+    </a>
+    <div class="dl-meta">v1.0.0 · Windows 10/11 · <strong>Plans unlock inside the app</strong></div>
+  </div>
+</section>
+
+<!-- HOW DOWNLOAD FLOW WORKS -->
+<section class="flow" id="how-it-works">
+  <p class="section-eyebrow">Getting started</p>
+  <h2 class="section-title">Download, Sign in, <em style="color:var(--green);font-style:normal">Go</em></h2>
+
+  <div class="steps fade-up">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-label"><strong>Download</strong>Free install for Windows</div>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-label"><strong>Sign In</strong>Create your account in the app</div>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-label"><strong>Choose Plan</strong>Free or upgrade to Pro</div>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-label"><strong>Ace It</strong>AI answers in real time</div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- MAIN PAGE -->
-<div id="main-page">
-  <nav>
-    <div class="logo">🤖 Interview AI</div>
-    <a href="#download" class="nav-btn">Download Free</a>
-  </nav>
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-header fade-up">
+    <p class="section-eyebrow">What you get</p>
+    <h2 class="section-title">Everything you need to<br><em style="color:var(--green);font-style:normal">nail the interview</em></h2>
+  </div>
 
-  <div class="hero">
-    <h1>Ace Every Interview<br>with <span>AI Assistance</span></h1>
-    <p>Real-time AI-powered answers to interview questions. Works silently in the background while you interview.</p>
-    <div class="hero-btns">
-      <a href="#download" class="btn-primary">⬇ Download for Windows</a>
-      <a href="#pricing" class="btn-secondary">View Plans</a>
+  <div class="features-grid">
+    <div class="feat fade-up">
+      <div class="feat-icon">🧠</div>
+      <h3>AI Answer Engine</h3>
+      <p>Instant answers to behavioral, technical, and coding questions powered by advanced AI models.</p>
+    </div>
+    <div class="feat fade-up">
+      <div class="feat-icon">🎤</div>
+      <h3>Voice Detection</h3>
+      <p>Speak your question — the app listens and answers automatically. No typing during interviews.</p>
+    </div>
+    <div class="feat fade-up">
+      <div class="feat-icon">📄</div>
+      <h3>Resume Matching</h3>
+      <p>Upload your resume and get personalized answers based on your actual experience and skills.</p>
+    </div>
+    <div class="feat fade-up">
+      <div class="feat-icon">🖥</div>
+      <h3>Screen Capture</h3>
+      <p>Capture coding problems from LeetCode, HackerRank, or any screen and get instant solutions.</p>
+    </div>
+    <div class="feat fade-up">
+      <div class="feat-icon">👁</div>
+      <h3>Invisible Overlay</h3>
+      <p>Adjustable opacity and always-on-top mode. Hidden from screen sharing — only you can see it.</p>
+    </div>
+    <div class="feat fade-up">
+      <div class="feat-icon">⚡</div>
+      <h3>Instant Answers</h3>
+      <p>Get AI-generated answers in under 2 seconds. Fast enough to keep up with any interview pace.</p>
     </div>
   </div>
+</section>
 
-  <div class="features">
-    <div class="feature"><div class="icon">🧠</div><h3>AI Answer Engine</h3><p>Get instant answers to behavioral, technical, and coding questions powered by advanced AI.</p></div>
-    <div class="feature"><div class="icon">🎤</div><h3>Voice Detection</h3><p>Speak your question and get answers automatically — no typing needed during interviews.</p></div>
-    <div class="feature"><div class="icon">📄</div><h3>Resume Matching</h3><p>Upload your resume and get personalized answers based on your actual experience.</p></div>
-    <div class="feature"><div class="icon">🖥</div><h3>Screen Capture</h3><p>Capture coding problems from your screen and get instant solutions with explanations.</p></div>
-    <div class="feature"><div class="icon">👁</div><h3>Invisible Mode</h3><p>Adjust opacity and always-on-top mode — stays hidden from screen sharing.</p></div>
-    <div class="feature"><div class="icon">⚡</div><h3>Instant Answers</h3><p>Get answers in under 2 seconds using the fastest AI models available.</p></div>
-  </div>
+<!-- IN-APP FLOW -->
+<section class="app-flow fade-up">
+  <p class="section-eyebrow">Inside the app</p>
+  <h2 class="section-title">Simple flow after you install</h2>
 
-  <div class="pricing" id="pricing">
-    <h2>Simple Pricing</h2>
-    <div class="plans">
-      <div class="plan">
-        <h3>Monthly</h3>
-        <div class="price">₹499<span>/mo</span></div>
-        <p>Billed every month</p>
-        <!-- PASTE your Razorpay monthly link here -->
-        <a href="https://rzp.io/rzp/3yFeYED5" target="_blank">Get Started</a>
-      </div>
-      <div class="plan popular">
-        <div class="badge">BEST VALUE</div>
-        <h3>Yearly</h3>
-        <div class="price">₹4999<span>/yr</span></div>
-        <p>Save 58% vs monthly</p>
-        <!-- PASTE your Razorpay yearly link here -->
-        <a href="https://rzp.io/rzp/2zvxyKZ" target="_blank">Get Started</a>
-      </div>
-      <div class="plan">
-        <h3>Lifetime</h3>
-        <div class="price">₹9999</div>
-        <p>Pay once, use forever</p>
-        <!-- PASTE your Razorpay lifetime link here -->
-        <a href="https://rzp.io/rzp/Sf1vPpw4" target="_blank">Get Started</a>
-      </div>
+  <div class="app-steps">
+    <div class="app-step">
+      <div class="app-step-num">Step 1</div>
+      <div class="app-step-icon">🔑</div>
+      <h4>Login / Register</h4>
+      <p>Create a free account or sign in</p>
+    </div>
+    <div class="app-step">
+      <div class="app-step-num">Step 2</div>
+      <div class="app-step-icon">💳</div>
+      <h4>Choose Plan</h4>
+      <p>Free plan or upgrade to Pro for unlimited access</p>
+    </div>
+    <div class="app-step">
+      <div class="app-step-num">Step 3</div>
+      <div class="app-step-icon">🚀</div>
+      <h4>App Opens</h4>
+      <p>Start using AI assistance immediately</p>
     </div>
   </div>
+</section>
 
-  <div class="download" id="download">
-    <h2>Download Interview AI</h2>
-    <p>Free to download. Sign up and choose a plan inside the app.</p>
-    <a href="https://github.com/balasarayudevarakonda/interview-ai/releases/download/v1.0.0/Interview.AI.Setup.1.0.0.exe">⬇ Download for Windows (.exe)</a>
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-glow"></div>
+  <h2>Ready to ace your<br><em style="color:var(--green);font-style:normal">next interview?</em></h2>
+  <p>Download free. No credit card. Plans available inside the app.</p>
+  <div class="dl-block">
+    <a class="dl-btn" href="https://github.com/balasarayudevarakonda/interview-ai/releases/download/v1.0.0/Interview.AI.Setup.1.0.0.exe">
+      ⬇ Download for Windows — Free
+    </a>
+    <div class="dl-meta">Windows 10 / 11 · v1.0.0</div>
   </div>
+</section>
 
-  <footer>
-    © 2026 Interview AI · Built with ❤ · <a href="mailto:balasarayudevarakonda@gmail.com" style="color:#a78bfa;">Contact</a>
-  </footer>
-</div>
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 Interview AI</div>
+  <div style="display:flex;gap:20px;">
+    <a href="mailto:balasarayudevarakonda@gmail.com">Contact</a>
+  </div>
+</footer>
 
 <script>
-  // Auto-show success page if URL has ?payment=success
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('payment') === 'success') {
-    document.getElementById('success-page').classList.add('show');
-    document.getElementById('main-page').classList.add('hide');
-  }
-
-  async function fetchLicense() {
-    const email = document.getElementById('email-input').value.trim();
-    const errorEl = document.getElementById('error-msg');
-    const loadingEl = document.getElementById('loading-msg');
-    const resultEl = document.getElementById('license-result');
-
-    errorEl.classList.remove('show');
-    resultEl.classList.remove('show');
-
-    if (!email || !email.includes('@')) {
-      errorEl.textContent = 'Please enter a valid email.';
-      errorEl.classList.add('show');
-      return;
-    }
-
-    loadingEl.classList.add('show');
-
-    try {
-      // ⚠️ Replace with your Railway backend URL after deploying
-      const res = await fetch('https://interview-ai-backend-hu7r.onrender.com/get-license', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-      const data = await res.json();
-      loadingEl.classList.remove('show');
-
-      if (data.licenseKey) {
-        document.getElementById('license-key-display').textContent = data.licenseKey;
-        resultEl.classList.add('show');
-      } else {
-        errorEl.textContent = data.error || 'No license found. Contact support.';
-        errorEl.classList.add('show');
+  // Fade-up on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // Stagger children if it's a grid/steps
+        e.target.querySelectorAll('.feat, .step, .app-step').forEach((child, i) => {
+          child.style.transitionDelay = (i * 0.1) + 's';
+          child.classList.add('visible');
+        });
       }
-    } catch (err) {
-      loadingEl.classList.remove('show');
-      errorEl.textContent = 'Server error. Please try again or contact support.';
-      errorEl.classList.add('show');
-    }
-  }
-
-  function copyKey() {
-    const key = document.getElementById('license-key-display').textContent;
-    navigator.clipboard.writeText(key).then(() => {
-      const btn = document.querySelector('.copy-btn');
-      btn.textContent = '✅ Copied!';
-      setTimeout(() => btn.textContent = '📋 Copy Key', 2000);
     });
-  }
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>
